@@ -1,17 +1,17 @@
 <div align="center">
 
-# 🏥 HMS
+# 🧠 Synapse
 
-### 병원 예약 & 내부 업무 시스템
+### 이벤트 기반 MSA 학습 플랫폼
 
-**PBL 팀 프로젝트 · 4인 팀 · 2026.02.26 ~ 2026.03.26 (4주)**
+**졸업 프로젝트** · 6인 팀 · 2026.05.12 ~ 2026.06.17
 
-![Status](https://img.shields.io/badge/status-완료-success?style=flat-square)
+![Status](https://img.shields.io/badge/status-진행중-yellow?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-007396?style=flat-square&logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-6DB33F?style=flat-square&logo=spring-boot)
-![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?style=flat-square&logo=mysql)
-![Redis](https://img.shields.io/badge/Redis-7-DC382D?style=flat-square&logo=redis)
-![Tests](https://img.shields.io/badge/tests-249%20passed-brightgreen?style=flat-square)
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=flat-square&logo=flutter)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-1.30-326CE5?style=flat-square&logo=kubernetes)
+![Kafka](https://img.shields.io/badge/Kafka-KRaft-231F20?style=flat-square&logo=apache-kafka)
 
 </div>
 
@@ -19,36 +19,16 @@
 
 ## 📖 프로젝트 소개
 
-**HMS(Hospital Management System)**는 중소 규모 병원의 예약·접수·진료·관리 업무를 통합한 사내 운영 시스템으로, **5개 직무별 권한 분리 + AI 증상 추천 + 병원 규칙 Q&A 챗봇**을 제공합니다.
+**Synapse**는 학습자의 노트·카드·커뮤니티 활동을 통합 관리하고 AI 학습 보조를 제공하는 **이벤트 기반 마이크로서비스 학습 플랫폼**입니다.
 
-기존 병원 시스템의 한계인 *복잡한 권한 관리*와 *비회원 환자의 부정확한 진료과 선택* 문제를, **세션 기반 5단계 ROLE 분리 + 하이브리드 AI 아키텍처(자체 호스팅 LLM + Claude API)**로 해결합니다.
+기존 LMS의 한계인 *모놀리식 구조에서 오는 확장성 제약*과 *학습 데이터 사일로* 문제를, **4개 마이크로서비스 + Kafka 이벤트 버스 + GitOps 배포 파이프라인**으로 해결하는 것을 목표로 설계되었습니다.
 
 ### 🎯 차별점
 
-- 🔐 **5개 ROLE 권한 분리** — ADMIN / STAFF / DOCTOR / NURSE / ITEM_MANAGER
-- 🤖 **하이브리드 AI** — 민감 의료 상담은 자체 호스팅(Qwen 2.5), 공개 규칙 Q&A는 Claude API → 비용·프라이버시 동시 해결
-- 📊 **검증된 품질** — 249개 테스트 케이스 100% 통과
-- 📚 **완성된 문서 체계** — PRD·ERD·API·아키텍처·테스트 전략 등 16개 카테고리
-
----
-
-## ✨ 핵심 기능
-
-### 비회원 환자
-
-- AI 증상 입력 → 진료과·의사 자동 추천 예약
-- 진료과·의사 직접 선택 예약
-- 예약번호 발급
-
-### 내부 직원 (역할별 분리)
-
-| 역할 | 핵심 업무 |
-|---|---|
-| 🛡️ **ADMIN** | 예약·환자·직원·진료과·물품·병원 규칙 전체 관리 · 대시보드 |
-| 👤 **STAFF** | 전화 예약 등록 · 방문 접수 · 접수 처리 · 물품 사용 |
-| 👨‍⚕️ **DOCTOR** | 오늘 진료 목록 · 진료 기록 입력 · 병원 규칙 Q&A 챗봇 |
-| 👩‍⚕️ **NURSE** | 예약 현황 조회 · 환자 정보 수정 · 병원 규칙 Q&A 챗봇 |
-| 📦 **ITEM_MANAGER** | 물품 입고·출고·재고 관리 · 사용 이력 · 대시보드 |
+- 🧩 **도메인 단위 MSA 분리** — 학습(SRS)·지식(노트/그래프)·플랫폼(인증/빌링)·참여(커뮤니티)를 독립 서비스로
+- 🔁 **이벤트 기반 통신** — Kafka + Avro Schema Registry로 서비스 간 결합도 최소화
+- 🤖 **Polyglot AI 통합** — Java 메인 + Python(FastAPI) AI 서비스 분리
+- 🚀 **GitOps 자동 배포** — ArgoCD ApplicationSet 기반 선언적 배포
 
 ---
 
@@ -56,66 +36,71 @@
 
 ```mermaid
 graph TB
-    Patient[👤 비회원 환자]
-    Staff[👥 내부 직원<br/>5 ROLE]
+    User[👤 사용자]
+    Flutter[Flutter Frontend<br/>Web + Mobile]
 
-    subgraph "Web Layer (Spring Boot + Mustache SSR)"
-        Web[Spring Boot 4 Web]
-        Security[Spring Security<br/>Session-based, 5 ROLE]
-        Controllers[Controllers<br/>역할별 패키지 분리]
+    subgraph "Backend Services"
+        Platform[Platform Service<br/>auth · audit · billing · notification]
+        Learning[Learning Service<br/>card · srs + AI]
+        Knowledge[Knowledge Service<br/>note · graph · chunking]
+        Engagement[Engagement Service<br/>community · gamification]
     end
 
-    subgraph "Service Layer"
-        Reservation[Reservation Service]
-        Treatment[Treatment Service]
-        Inventory[Inventory Service]
-        LlmService[LLM Service]
+    AI[AI Service<br/>FastAPI + Qwen 2.5]
+
+    Kafka[(Kafka KRaft<br/>+ Avro Schema Registry)]
+    Postgres[(PostgreSQL 16<br/>3-Schema Isolation)]
+
+    subgraph "Infrastructure"
+        K8s[Kubernetes Cluster]
+        ArgoCD[ArgoCD GitOps]
     end
 
-    subgraph "Data Layer"
-        JPA[Spring Data JPA]
-        DB[(MySQL 8 / H2)]
-        Redis[(Redis<br/>Cache · Session)]
-    end
+    User --> Flutter
+    Flutter --> Platform
+    Flutter --> Learning
+    Flutter --> Knowledge
+    Flutter --> Engagement
 
-    subgraph "AI Integration (Hybrid)"
-        Claude[Claude API<br/>공개 규칙 Q&A]
-        PyLLM[Python LLM Server<br/>FastAPI + Qwen 2.5<br/>+ ChromaDB RAG]
-    end
+    Learning --> AI
 
-    Patient --> Web
-    Staff --> Web
+    Platform --> Kafka
+    Learning --> Kafka
+    Knowledge --> Kafka
+    Engagement --> Kafka
 
-    Web --> Security
-    Security --> Controllers
-    Controllers --> Reservation
-    Controllers --> Treatment
-    Controllers --> Inventory
-    Controllers --> LlmService
+    Platform --> Postgres
+    Learning --> Postgres
+    Knowledge --> Postgres
+    Engagement --> Postgres
 
-    Reservation --> JPA
-    Treatment --> JPA
-    Inventory --> JPA
-    JPA --> DB
-    JPA --> Redis
+    Platform -.->|deployed on| K8s
+    Learning -.->|deployed on| K8s
+    Knowledge -.->|deployed on| K8s
+    Engagement -.->|deployed on| K8s
+    AI -.->|deployed on| K8s
 
-    LlmService -->|병원 규칙 Q&A| Claude
-    LlmService -->|증상 분석 · 의료 상담| PyLLM
+    ArgoCD -.->|manages| K8s
 
-    style Security fill:#6DB33F,color:#fff
-    style Web fill:#6DB33F,color:#fff
-    style Claude fill:#D97757,color:#fff
-    style PyLLM fill:#3776AB,color:#fff
-    style DB fill:#4479A1,color:#fff
-    style Redis fill:#DC382D,color:#fff
+    style Platform fill:#6DB33F,color:#fff
+    style Learning fill:#6DB33F,color:#fff
+    style Knowledge fill:#6DB33F,color:#fff
+    style Engagement fill:#6DB33F,color:#fff
+    style AI fill:#3776AB,color:#fff
+    style Flutter fill:#02569B,color:#fff
+    style K8s fill:#326CE5,color:#fff
+    style ArgoCD fill:#EF7B4D,color:#fff
 ```
 
-### 하이브리드 AI 설계 의도
+### 핵심 패턴
 
-| 기능 | LLM 선택 | 이유 |
-|---|---|---|
-| 병원 규칙 Q&A | Claude API | 공개 정보 · 고품질 응답 우선 |
-| 증상 분석 / 의료 상담 | Qwen 2.5 (자체 호스팅) | 민감 의료 데이터 · 외부 전송 회피 |
+| 패턴 | 적용 영역 |
+|---|---|
+| **Transactional Outbox** | 모든 백엔드 서비스의 도메인 이벤트 발행 |
+| **Saga Orchestrator** | 서비스 간 분산 트랜잭션 (예: 결제 → 학습 활성화) |
+| **Schema Registry** | Avro 기반 이벤트 스키마 버전 관리 |
+| **GitOps (Pull-based)** | ArgoCD ApplicationSet으로 환경별 자동 동기화 |
+| **3-Schema Isolation** | 서비스별 DB 격리, 단일 PostgreSQL 클러스터 비용 효율 |
 
 ---
 
@@ -123,41 +108,54 @@ graph TB
 
 | 영역 | 기술 |
 |---|---|
-| **Backend** | Spring Boot 4 · Java 21 · Spring Security · Spring Data JPA |
-| **View** | Mustache (SSR) · Tailwind CSS 4 · Lucide Icons · Chart.js · Flatpickr |
-| **Database** | MySQL 8 (운영) · H2 (개발) · Redis (캐시·세션) |
-| **AI (Java)** | Claude API (Anthropic) |
-| **AI (Python)** | FastAPI · Qwen 2.5 (vLLM, Ollama) · ChromaDB RAG |
-| **Test** | JUnit 5 · Mockito 5 · Spring MockMvc · REST Docs |
-| **Build** | Gradle · npm |
+| **Backend** | Spring Boot 4 · Java 21 · Spring Security · Spring Data JPA · QueryDSL |
+| **AI Service** | Python 3.12 · FastAPI · Qwen 2.5 (vLLM, Ollama) · ChromaDB |
+| **Frontend** | Flutter · Riverpod · GoRouter · Dio |
+| **Event Bus** | Apache Kafka (KRaft) · Avro · Schema Registry |
+| **Database** | PostgreSQL 16 (+ pgvector) · Redis |
+| **Infrastructure** | Kubernetes · ArgoCD · Docker · Helm |
+| **Observability** | Prometheus · Grafana · Loki · Tempo |
+| **Build & CI** | Gradle · npm · GitHub Actions |
 
 ---
 
 ## 📁 레포지토리 가이드
 
+### 🟢 Backend Microservices
+
+| 레포 | 도메인 | 핵심 책임 |
+|---|---|---|
+| [`synapse-platform-svc`](../../synapse-platform-svc) | Platform | 인증 · 감사 · 빌링 · 알림 |
+| [`synapse-learning-svc`](../../synapse-learning-svc) | Learning | 학습 카드 · SRS 알고리즘 + AI 학습 보조 |
+| [`synapse-knowledge-svc`](../../synapse-knowledge-svc) | Knowledge | 노트 · 지식 그래프 · 문서 청킹 |
+| [`synapse-engagement-svc`](../../synapse-engagement-svc) | Engagement | 커뮤니티 · 게이미피케이션 |
+
+### 🔵 Frontend
+
 | 레포 | 내용 |
 |---|---|
-| [`hms`](../../hms) | **메인 애플리케이션** · Spring Boot 4 + Mustache SSR + Python LLM 서버 |
-| [`documents`](../../documents) | **프로젝트 문서 16개 카테고리** · PRD · ERD · API · 아키텍처 · 테스트 전략 · 배포 가이드 |
+| [`synapse-frontend`](../../synapse-frontend) | Flutter 기반 Web + Mobile 통합 클라이언트 |
 
----
+### 🟠 Infrastructure & Shared
 
-## 📊 주요 성과
+| 레포 | 내용 |
+|---|---|
+| [`synapse-gitops`](../../synapse-gitops) | Kubernetes 매니페스트 + ArgoCD ApplicationSet |
+| [`synapse-shared`](../../synapse-shared) | Avro 이벤트 스키마 + 공통 라이브러리 |
 
-```
-✅ 4주 일정 내 완성 (납기 100% 준수)
-✅ 테스트 케이스 249건 100% 통과
-   ├─ Controller (MockMvc): 130건
-   ├─ Service (Unit):       100건
-   ├─ Repository (DataJpa):   8건
-   └─ Domain · DTO · 기타:    11건
-✅ 도메인 12개 / REST API 89개 / 화면 40개+ / Mustache 템플릿 74개
-✅ 16개 카테고리 문서 체계 구축
-```
+### 📚 Documentation & Tooling
 
-### 코드 구성 (`hms` 레포 기준)
-
-- Java **52.0%** · Mustache **36.2%** · Python **7.5%** · JavaScript **3.4%** · CSS **0.6%**
+| 레포 | 내용 |
+|---|---|
+| [`syn`](../../syn) | 부트스트랩 스크립트 · 스펙 · 프로젝트 문서 모노레포 |
+| [`documents`](../../documents) | 프로젝트 문서 · 화면 정의서 · ERD 등 |
+| [`storyboard`](../../storyboard) | 스토리보드 (HTML) |
+| [`schedule`](../../schedule) | 개발 일정 관리 |
+| [`workflow-guide`](../../workflow-guide) | Git/PR 워크플로우 가이드 |
+| [`workflow-dashboard`](../../workflow-dashboard) | 팀 워크플로우 대시보드 |
+| [`synapse-data-mocking`](../../synapse-data-mocking) | 개발용 목업 데이터 생성 |
+| [`synapse-prototype`](../../synapse-prototype) | 초기 프로토타입 |
+| [`preview`](../../preview) | 프리뷰 도구 |
 
 ---
 
@@ -165,24 +163,36 @@ graph TB
 
 | 역할 | 담당 |
 |---|---|
-| **책임개발자 (Team Lead)** | **김민구** — 아키텍처 설계 · Spring Security · JPA Entity · LLM 연동 · Python LLM 서버 · 배포 |
-| 개발자 A | 비회원 예약 흐름 (`/reservation/**`) |
-| 개발자 B | 내부 직원 화면 (`/staff/**` · `/doctor/**` · `/nurse/**`) + LLM UI |
-| 개발자 C | 관리자 화면 (`/admin/**` · `/item/**`) |
+| **책임개발자 (Team Lead)** | **김민구** — 전체 아키텍처 설계 총괄 · 인프라(K8s + GitOps) · 이벤트 스키마 |
+| Backend / Frontend / AI | 팀원 5명 분담 |
+
+---
+
+## 📊 프로젝트 진행 상황
+
+```
+✅ 아키텍처 설계 완료
+✅ 4개 마이크로서비스 골격 구축
+✅ Avro 이벤트 스키마 정의
+✅ Kubernetes 매니페스트 + ArgoCD 파이프라인 구축
+✅ Flutter 프론트엔드 기본 화면 구축
+🔄 도메인 로직 구현 진행 중
+🔄 통합 테스트 진행 중
+⏳ 최종 배포 및 데모 (2026.06.17 예정)
+```
 
 ---
 
 ## 🔗 관련 링크
 
-- 📂 [전체 레포지토리 목록](https://github.com/orgs/proejct-team-alpha/repositories)
-- 📖 [프로젝트 문서](https://github.com/proejct-team-alpha/documents)
-- 🏥 [메인 애플리케이션 (hms)](https://github.com/proejct-team-alpha/hms)
+- 📂 [전체 레포지토리 목록](https://github.com/orgs/team-project-final/repositories)
+- 📖 [프로젝트 문서](https://github.com/team-project-final/documents)
 - 📝 [기술 블로그 (책임개발자)](https://mg-tech-archive.inblog.io/)
 
 ---
 
 <div align="center">
 
-**HMS** · Spring Boot 4 기반 병원 통합 운영 시스템 · 2026
+**Synapse** · MSA 기반 차세대 학습 플랫폼 · 2026
 
 </div>
