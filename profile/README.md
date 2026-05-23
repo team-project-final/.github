@@ -23,6 +23,23 @@
 
 ---
 
+## 🎬 라이브 데모
+
+> **GitHub Pages에 배포된 6개의 인터랙티브 자료**. 코드만이 아니라 설계·흐름·화면을 직접 둘러볼 수 있다.
+
+| | 무엇 | 한 줄 설명 |
+|---|---|---|
+| ⭐ | [**Flow Simulator**](https://team-project-final.github.io/synapse-flow-simulator/) | **18개 시나리오** 인터랙티브 아키텍처 시뮬레이터 (인증·AI·장애복구·GitOps 등) · 아키텍처/시퀀스/UX **3 뷰** + 재생 속도 0.25–2× + 로그 패널 |
+| 🖼️ | [Storyboard v1.0](https://team-project-final.github.io/storyboard/) | 화면 정의서 슬라이드 (키보드 네비게이션 지원) |
+| 🌐 | [Product Landing](https://team-project-final.github.io/synapse-prototype/) | "통합 학습-지식 그래프 SaaS" 제품 랜딩 |
+| 📘 | [GitOps Runbook](https://team-project-final.github.io/synapse-gitops/) | `synapse_runbooks` — 운영 가이드 |
+| 🧪 | [Mocking Playground](https://team-project-final.github.io/synapse-data-mocking/) | 개발용 mock 데이터 생성·조작 도구 |
+| 📋 | [Workflow Guide](https://team-project-final.github.io/workflow-guide/) | Git/PR 워크플로우 가이드 |
+
+> 가장 추천: **Flow Simulator** — 30초 안에 이벤트 기반 MSA가 실제로 어떻게 동작하는지 눈으로 확인할 수 있다.
+
+---
+
 ## 🎯 차별점
 
 - 🧩 **모놀리식 LMS의 확장성·도메인 사일로 문제** → 학습(SRS)·지식(노트/그래프)·플랫폼(인증/빌링)·참여(커뮤니티)를 **독립 마이크로서비스 4개**로 분리
@@ -237,17 +254,19 @@ sequenceDiagram
 
 ### 📚 Documentation & Tooling
 
-| 레포 | 내용 |
-|---|---|
-| [`documents`](../../documents) | 프로젝트 문서 · 화면 정의서 · ERD · **ADR(decisions/)** |
-| [`syn`](../../syn) | 부트스트랩 스크립트·스펙·프로젝트 문서 모노레포 (`documents`의 상위 메타 레포) |
-| [`storyboard`](../../storyboard) | 스토리보드 (HTML 화면 흐름) |
-| [`schedule`](../../schedule) | 개발 일정 관리 |
-| [`workflow-guide`](../../workflow-guide) | Git/PR 워크플로우 가이드 |
-| [`workflow-dashboard`](../../workflow-dashboard) | 팀 워크플로우 대시보드 |
-| [`synapse-data-mocking`](../../synapse-data-mocking) | 개발용 목업 데이터 생성 |
-| [`synapse-prototype`](../../synapse-prototype) | 초기 프로토타입 (현재 비활성) |
-| [`preview`](../../preview) | 화면 프리뷰 도구 |
+| 레포 | 내용 | 라이브 |
+|---|---|---|
+| [`documents`](../../documents) | 프로젝트 문서 · 화면 정의서 · ERD · **ADR(decisions/)** | — |
+| [`syn`](../../syn) | 부트스트랩 스크립트·스펙·프로젝트 문서 모노레포 (`documents`의 상위 메타 레포) | — |
+| [`storyboard`](../../storyboard) | 화면 정의서 슬라이드 (키보드 네비게이션) | [🖼️ v1.0](https://team-project-final.github.io/storyboard/) |
+| [`workflow-guide`](../../workflow-guide) | Git/PR 워크플로우 가이드 | [📋 보기](https://team-project-final.github.io/workflow-guide/) |
+| [`workflow-dashboard`](../../workflow-dashboard) | 팀 워크플로우 대시보드 | — |
+| [`schedule`](../../schedule) | 개발 일정 관리 | — |
+| [`synapse-flow-simulator`](../../synapse-flow-simulator) | ⭐ **18개 시나리오 인터랙티브 아키텍처 시뮬레이터** (아키텍처/시퀀스/UX 3 뷰) | [🎬 시뮬레이터](https://team-project-final.github.io/synapse-flow-simulator/) |
+| [`synapse-data-mocking`](../../synapse-data-mocking) | 개발용 mock 데이터 생성·조작 도구 | [🧪 Playground](https://team-project-final.github.io/synapse-data-mocking/) |
+| [`synapse-prototype`](../../synapse-prototype) | 제품 랜딩 페이지 — "통합 학습-지식 그래프 SaaS" | [🌐 랜딩](https://team-project-final.github.io/synapse-prototype/) |
+| [`synapse-gitops`](../../synapse-gitops) | K8s 매니페스트 + ArgoCD ApplicationSet (Backend Infra 표 참고) + 운영 런북 | [📘 Runbook](https://team-project-final.github.io/synapse-gitops/) |
+| [`preview`](../../preview) | 화면 프리뷰 도구 | — |
 
 ---
 
