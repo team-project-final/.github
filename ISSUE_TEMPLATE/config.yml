@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📝 책임개발자 기술 블로그
+    url: https://mg-tech-archive.inblog.io/
+    about: 설계 회고·튜토리얼은 블로그에서 다룹니다.
+  - name: 🟢 Backend 서비스 이슈
+    url: https://github.com/orgs/team-project-final/repositories?q=svc
+    about: 코드 관련 이슈는 해당 서비스 레포에 작성해주세요.
