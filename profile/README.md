@@ -279,7 +279,7 @@ sequenceDiagram
 | **김나경** | D-1 | learning-svc | card · srs (Java) | [`synapse-learning-svc`](../../synapse-learning-svc) |
 | **조유지** | D-2 | learning-svc | ai (Python/FastAPI) | [`synapse-learning-svc`](../../synapse-learning-svc) |
 
-> **Frontend (Flutter)** · **Documents** — 전원 공동 작업: [`synapse-frontend`](../../synapse-frontend) · [`documents`](../../documents)
+> **Frontend (Flutter)** — 전원 공동 작업: [`synapse-frontend`](../../synapse-frontend)
 
 ---
 
@@ -313,15 +313,15 @@ sequenceDiagram
 
 | 레포 | 내용 | 라이브 | 담당 |
 |---|---|---|---|
-| [`documents`](../../documents) | 프로젝트 관리 문서 · 화면 정의서 · ERD · **wiki 18종 정식 문서** · **ADR(decisions/)** | — | 전원 |
-| [`synapse-flow-simulator`](../../synapse-flow-simulator) | ⭐ **18개 시나리오 인터랙티브 아키텍처 시뮬레이터** (아키텍처/시퀀스/UX 3 뷰) | [🎬 시뮬레이터](https://team-project-final.github.io/synapse-flow-simulator/) | — |
-| [`storyboard`](../../storyboard) | 화면 정의서 슬라이드 (키보드 네비게이션) | [🖼️ v1.0](https://team-project-final.github.io/storyboard/) | — |
-| [`synapse-prototype`](../../synapse-prototype) | 제품 랜딩 — "통합 학습-지식 그래프 SaaS" | [🌐 랜딩](https://team-project-final.github.io/synapse-prototype/) | — |
-| [`synapse-data-mocking`](../../synapse-data-mocking) | 개발용 mock 데이터 생성·조작 도구 | [🧪 Playground](https://team-project-final.github.io/synapse-data-mocking/) | — |
-| [`workflow-guide`](../../workflow-guide) | Git/PR 워크플로우 가이드 | [📋 보기](https://team-project-final.github.io/workflow-guide/) | — |
-| [`workflow-dashboard`](../../workflow-dashboard) | 팀 워크플로우 대시보드 | — | — |
-| [`schedule`](../../schedule) | 개발 일정 관리 | — | — |
-| [`preview`](../../preview) | 화면 프리뷰 도구 | — | — |
+| [`documents`](../../documents) | 프로젝트 관리 문서 · 화면 정의서 · ERD · **wiki 18종 정식 문서** · **ADR(decisions/)** | — | 김민구 |
+| [`synapse-flow-simulator`](../../synapse-flow-simulator) | ⭐ **18개 시나리오 인터랙티브 아키텍처 시뮬레이터** (아키텍처/시퀀스/UX 3 뷰) | [🎬 시뮬레이터](https://team-project-final.github.io/synapse-flow-simulator/) | 김민구 |
+| [`storyboard`](../../storyboard) | 화면 정의서 슬라이드 (키보드 네비게이션) | [🖼️ v1.0](https://team-project-final.github.io/storyboard/) | 김민구 |
+| [`synapse-prototype`](../../synapse-prototype) | 제품 랜딩 — "통합 학습-지식 그래프 SaaS" | [🌐 랜딩](https://team-project-final.github.io/synapse-prototype/) | 김민구 |
+| [`synapse-data-mocking`](../../synapse-data-mocking) | 개발용 mock 데이터 생성·조작 도구 | [🧪 Playground](https://team-project-final.github.io/synapse-data-mocking/) | 김민구 |
+| [`workflow-guide`](../../workflow-guide) | Git/PR 워크플로우 가이드 | [📋 보기](https://team-project-final.github.io/workflow-guide/) | 김민구 |
+| [`workflow-dashboard`](../../workflow-dashboard) | 팀 워크플로우 대시보드 | — | 김민구 |
+| [`schedule`](../../schedule) | 개발 일정 관리 | — | 김민구 |
+| [`preview`](../../preview) | 화면 프리뷰 도구 | — | 김민구 |
 
 ---
 
